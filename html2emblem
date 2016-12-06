@@ -1,0 +1,25 @@
+#!/bin/sh
+
+INPUT="$1"
+OUTPUT="`basename "$INPUT" .html`.emblem"
+
+format() {
+  if hash xmllint 2>/dev/null; then
+    xmllint --format "$INPUT" | tail -n +2 > "$OUTPUT"
+  else
+    cp "$INPUT" "$OUTPUT"
+  fi
+}
+
+format "$INPUT" "$OUTPUT"
+
+sed -rf html2emblem-pre.sed -i "$OUTPUT"
+
+sed -rf html2emblem.sed -i "$OUTPUT"
+sed -rf html2emblem.sed -i "$OUTPUT"
+sed -rf html2emblem.sed -i "$OUTPUT"
+sed -rf html2emblem.sed -i "$OUTPUT"
+sed -rf html2emblem.sed -i "$OUTPUT"
+
+sed -rf html2emblem-post.sed -i "$OUTPUT"
+
